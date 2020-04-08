@@ -18,6 +18,17 @@ class wallet_plugin : public plugin<wallet_plugin> {
 public:
    APPBASE_PLUGIN_REQUIRES()
 
+   struct sign_transaction_options {
+       chain::signed_transaction signed_transaction;
+       fc::flat_set<chain::public_key_type> public_keys;
+       chain::chain_id_type chain_id;
+   };
+
+   struct sign_digest_options {
+       chain::digest_type digest;
+       chain::public_key_type public_key;
+   };
+
    wallet_plugin();
    wallet_plugin(const wallet_plugin&) = delete;
    wallet_plugin(wallet_plugin&&) = delete;
@@ -38,3 +49,6 @@ private:
 };
 
 }
+
+FC_REFLECT(eosio::wallet_plugin::sign_transaction_options, (signed_transaction)(public_keys)(chain_id));
+FC_REFLECT(eosio::wallet_plugin::sign_digest_options, (digest)(public_key));

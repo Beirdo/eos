@@ -1,6 +1,7 @@
 #pragma once
 #include <eosio/chain/transaction.hpp>
 #include <eosio/wallet_plugin/wallet_api.hpp>
+#include <eosio/wallet_plugin/wallet_plugin.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/interprocess/sync/file_lock.hpp>
@@ -47,8 +48,7 @@ public:
    /// @param id the chain_id to sign transaction with.
    /// @return txn signed
    /// @throws fc::exception if corresponding private keys not found in unlocked wallets
-   chain::signed_transaction sign_transaction(const chain::signed_transaction& txn, const flat_set<public_key_type>& keys,
-                                             const chain::chain_id_type& id);
+   chain::signed_transaction sign_transaction(const wallet_plugin::sign_transaction_options& options);
 
 
    /// Sign digest with the private keys specified via their public keys.
@@ -56,7 +56,7 @@ public:
    /// @param key the public key of the corresponding private key to sign the digest with
    /// @return signature over the digest
    /// @throws fc::exception if corresponding private keys not found in unlocked wallets
-   chain::signature_type sign_digest(const chain::digest_type& digest, const public_key_type& key);
+   chain::signature_type sign_digest(const wallet_plugin::sign_digest_options& options);
 
    /// Create a new wallet.
    /// A new wallet is created in file dir/{name}.wallet see set_dir.

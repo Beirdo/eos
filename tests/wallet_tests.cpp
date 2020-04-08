@@ -1,6 +1,7 @@
 #include <eosio/chain/genesis_state.hpp>
 #include <eosio/wallet_plugin/wallet.hpp>
 #include <eosio/wallet_plugin/wallet_manager.hpp>
+#include <eosio/wallet_plugin/wallet_plugin.hpp>
 
 #include <boost/test/unit_test.hpp>
 #include <eosio/chain/authority.hpp>
@@ -163,12 +164,15 @@ BOOST_AUTO_TEST_CASE(wallet_manager_test)
    private_key_type pkey1{std::string(key1)};
    private_key_type pkey2{std::string(key2)};
 
-   chain::signed_transaction trx;
-   auto chain_id = genesis_state().compute_chain_id();
+   wallet_plugin::sign_transaction_options signTransactionOptions;
+   chain::chain_id_type chain_id = genesis_state().compute_chain_id();
+   signTransactionOptions.chain_id = chain_id;
    flat_set<public_key_type> pubkeys;
    pubkeys.emplace(pkey1.get_public_key());
    pubkeys.emplace(pkey2.get_public_key());
-   trx = wm.sign_transaction(trx, pubkeys, chain_id );
+   signTransactionOptions.public_keys = pubkeys;
+
+   chain::signed_transaction trx = wm.sign_transaction(signTransactionOptions);
    flat_set<public_key_type> pks;
    trx.get_signature_keys(chain_id, fc::time_point::maximum(), pks);
    BOOST_CHECK_EQUAL(2u, pks.size());

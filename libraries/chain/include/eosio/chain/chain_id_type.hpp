@@ -7,6 +7,7 @@ struct hello;
 namespace eosio {
 
    class net_plugin_impl;
+   class wallet_plugin;
    struct handshake_message;
 
    namespace chain_apis {
@@ -51,6 +52,7 @@ namespace chain {
          friend struct controller_impl;
          friend class global_property_object;
          friend struct snapshot_global_property_object;
+         friend class eosio::wallet_plugin;
    };
 
 } }  // namespace eosio::chain

@@ -1,5 +1,6 @@
 #include <appbase/application.hpp>
 #include <eosio/wallet_plugin/wallet_manager.hpp>
+#include <eosio/wallet_plugin/wallet_plugin.hpp>
 #include <eosio/wallet_plugin/wallet.hpp>
 #include <eosio/wallet_plugin/se_wallet.hpp>
 #include <eosio/chain/exceptions.hpp>
@@ -225,7 +226,11 @@ string wallet_manager::create_key(const std::string& name, const std::string& ke
 }
 
 chain::signed_transaction
-wallet_manager::sign_transaction(const chain::signed_transaction& txn, const flat_set<public_key_type>& keys, const chain::chain_id_type& id) {
+wallet_manager::sign_transaction(const wallet_plugin::sign_transaction_options& options) {
+   const chain::signed_transaction& txn = options.signed_transaction;
+   const flat_set<public_key_type>& keys = options.public_keys;
+   const chain::chain_id_type& id = options.chain_id;
+
    check_timeout();
    chain::signed_transaction stxn(txn);
 
@@ -250,7 +255,10 @@ wallet_manager::sign_transaction(const chain::signed_transaction& txn, const fla
 }
 
 chain::signature_type
-wallet_manager::sign_digest(const chain::digest_type& digest, const public_key_type& key) {
+wallet_manager::sign_digest(const wallet_plugin::sign_digest_options& options) {
+   const chain::digest_type& digest = options.digest;
+   const public_key_type& key = options.public_key;
+
    check_timeout();
 
    try {
