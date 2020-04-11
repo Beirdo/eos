@@ -23,9 +23,9 @@ servers:
         default: "8080"
 components:
   securitySchemes: {}
-  schemas: 
-    - {}
-security: {}
+  schemas: {}
+security: 
+ - {}
 paths:
 
   /wallet/set_timeout:
