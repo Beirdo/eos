@@ -23,9 +23,9 @@ servers:
         default: "8080"
 components:
   securitySchemes: {}
-  schemas: {}
-security:
-  - {}
+  schemas: 
+    - {}
+security: {}
 paths:
 
   /wallet/set_timeout:
@@ -333,12 +333,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: array
-                  items:
-                    type: string
-                description: list of [publicKey, privateKey]
+                type: object
+                description: "map of publicKey: privateKey"
 
   /wallet/get_public_keys:
     post:
