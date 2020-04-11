@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  title: EOSIO Wallet API
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  contact:
+    url: https://eos.io
+tags:
+  - name: eosio
+servers:
+  - url: "{protocol}://{host}:{port}/v1/"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+      port:
+        default: "8080"
+components:
+  securitySchemes: {}
+  schemas: {}
+security:
+  - {}
+paths:
+
+  /wallet/set_timeout:
+    post:
+      summary: set_timeout
+      description: Set wallet timeout
+      operationId: set_timeout
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: timeout in s
+            example: 60
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: returns nothing
+                
+  /wallet/sign_transaction:
+    post:
+      summary: sign_transaction
+      description: Sign a transaction
+      operationId: sign_transaction
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - signed_transaction
+                - public_keys
+                - chain_id
+              items:
+                properties:
+                  signed_transaction:
+                    $ref: "https://eosio.github.io/schemata/v2.0/oas/SignedTransaction.yaml"
+                  public_keys:
+                    type: array
+                    description: Public keys to sign with
+                    items:
+                      $ref: "https://eosio.github.io/schemata/v2.0/oas/PublicKey.yaml"
+                  chain_id:
+                    $ref: 'https://eosio.github.io/schemata/v2.0/oas/Sha256.yaml'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "https://eosio.github.io/schemata/v2.0/oas/SignedTransaction.yaml"
+
+  /wallet/sign_digest:
+    post:
+      summary: sign_digest
+      description: Sign a digest
+      operationId: sign_digest
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - digest
+                - public_key
+              items:
+                properties:
+                  digest:
+                    $ref: "https://eosio.github.io/schemata/v2.0/oas/Sha256.yaml"
+                  public_key:
+                    $ref: "https://eosio.github.io/schemata/v2.0/oas/PublicKey.yaml"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                 $ref: "https://eosio.github.io/schemata/v2.0/oas/Signature.yaml"
+
+  /wallet/create:
+    post:
+      summary: create
+      description: Creates a new wallet
+      operationId: create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              description: wallet name
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Password
+
+  /wallet/open:
+    post:
+      summary: open
+      description: Opens a waller
+      operationId: open
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              description: wallet name
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Returns Nothing
+
+  /wallet/lock_all:
+    post:
+      summary: lock_all
+      description: Locks all wallets
+      operationId: lock_all
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: takes no parameters
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: returns nothing
+
+  /wallet/lock:
+    post:
+      summary: lock
+      description: Locks a wallet
+      operationId: lock
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              description: wallet name
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Returns Nothing
+
+  /wallet/unlock:
+    post:
+      summary: unlock
+      description: Unlock a wallet
+      operationId: unlock
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: name, password
+              items:
+                type: string
+              minItems: 2
+              maxItems: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: returns nothing
+
+  /wallet/import_key:
+    post:
+      summary: import_key
+      description: Import a key into a wallet
+      operationId: import_key
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: name, key
+              items:
+                type: string
+              minItems: 2
+              maxItems: 2
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: returns nothing
+                
+  /wallet/remove_key:
+    post:
+      summary: remove_key
+      description: Remove key from wallet
+      operationId: set_whitelist_blacklist
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              description: name, key, password
+              minItems: 3
+              maxItems: 3
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Returns Nothing
+                
+  /wallet/create_key:
+    post:
+      summary: create_key
+      description: Creates a new key
+      operationId: create_key
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: name, key_type
+              items:
+                type: string
+              minItems: 2
+              maxItems: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: key
+
+  /wallet/list_wallets:
+    post:
+      summary: list_wallets
+      description: Lists all wallets
+      operationId: list_wallets
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: no inputs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: list of wallet names
+                items:
+                  type: string
+
+  /wallet/list_keys:
+    post:
+      summary: list_keys
+      description: Lists all key pairs
+      operationId: list_keys
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: name, password
+              items:
+                type: string
+              minItems: 2
+              maxItems: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: string
+                description: list of [publicKey, privateKey]
+
+  /wallet/get_public_keys:
+    post:
+      summary: get_public_keys
+      description: Get list of public keys
+      operationId: get_public_keys
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: no inputs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: list of public keys
+                items:
+                  type: string
