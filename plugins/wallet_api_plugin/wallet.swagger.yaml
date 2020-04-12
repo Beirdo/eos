@@ -47,6 +47,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 description: returns nothing
                 
   /wallet/sign_transaction:
@@ -76,7 +77,7 @@ paths:
                   chain_id:
                     $ref: 'https://eosio.github.io/schemata/v2.0/oas/Sha256.yaml'
       responses:
-        "200":
+        "201":
           description: OK
           content:
             application/json:
@@ -104,7 +105,7 @@ paths:
                   public_key:
                     $ref: "https://eosio.github.io/schemata/v2.0/oas/PublicKey.yaml"
       responses:
-        "200":
+        "201":
           description: OK
           content:
             application/json:
@@ -124,7 +125,7 @@ paths:
               type: string
               description: wallet name
       responses:
-        "200":
+        "201":
           description: OK
           content:
             application/json:
@@ -150,6 +151,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 description: Returns Nothing
 
   /wallet/lock_all:
@@ -169,6 +171,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 description: returns nothing
 
   /wallet/lock:
@@ -189,6 +192,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 description: Returns Nothing
 
   /wallet/unlock:
@@ -213,6 +217,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 description: returns nothing
 
   /wallet/import_key:
@@ -233,11 +238,12 @@ paths:
               maxItems: 2
 
       responses:
-        "200":
+        "201":
           description: OK
           content:
             application/json:
               schema:
+                type: object
                 description: returns nothing
                 
   /wallet/remove_key:
@@ -257,11 +263,12 @@ paths:
               minItems: 3
               maxItems: 3
       responses:
-        "200":
+        "201":
           description: OK
           content:
             application/json:
               schema:
+                type: object
                 description: Returns Nothing
                 
   /wallet/create_key:
@@ -281,7 +288,7 @@ paths:
               minItems: 2
               maxItems: 2
       responses:
-        "200":
+        "201":
           description: OK
           content:
             application/json:
