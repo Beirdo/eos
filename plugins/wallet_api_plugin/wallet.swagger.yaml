@@ -10,7 +10,7 @@ info:
 tags:
   - name: eosio
 servers:
-  - url: "{protocol}://{host}:{port}/v1/"
+  - url: "{protocol}://{host}:{port}/v1"
     variables:
       protocol:
         enum:
