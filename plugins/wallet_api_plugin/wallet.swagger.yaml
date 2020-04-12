@@ -10,7 +10,7 @@ info:
 tags:
   - name: eosio
 servers:
-  - url: "{protocol}://{host}:{port}/v1"
+  - url: "{protocol}://{host}:{port}/v1/wallet"
     variables:
       protocol:
         enum:
@@ -28,7 +28,7 @@ security:
  - {}
 paths:
 
-  /wallet/set_timeout:
+  /set_timeout:
     post:
       summary: set_timeout
       description: Set wallet timeout
@@ -50,7 +50,7 @@ paths:
                 type: object
                 description: returns nothing
                 
-  /wallet/sign_transaction:
+  /sign_transaction:
     post:
       summary: sign_transaction
       description: Sign a transaction
@@ -84,7 +84,7 @@ paths:
               schema:
                 $ref: "https://eosio.github.io/schemata/v2.0/oas/SignedTransaction.yaml"
 
-  /wallet/sign_digest:
+  /sign_digest:
     post:
       summary: sign_digest
       description: Sign a digest
@@ -112,7 +112,7 @@ paths:
               schema:
                  $ref: "https://eosio.github.io/schemata/v2.0/oas/Signature.yaml"
 
-  /wallet/create:
+  /create:
     post:
       summary: create
       description: Creates a new wallet
@@ -133,7 +133,7 @@ paths:
                 type: string
                 description: Password
 
-  /wallet/open:
+  /open:
     post:
       summary: open
       description: Opens a waller
@@ -154,7 +154,7 @@ paths:
                 type: object
                 description: Returns Nothing
 
-  /wallet/lock_all:
+  /lock_all:
     post:
       summary: lock_all
       description: Locks all wallets
@@ -174,7 +174,7 @@ paths:
                 type: object
                 description: returns nothing
 
-  /wallet/lock:
+  /lock:
     post:
       summary: lock
       description: Locks a wallet
@@ -195,7 +195,7 @@ paths:
                 type: object
                 description: Returns Nothing
 
-  /wallet/unlock:
+  /unlock:
     post:
       summary: unlock
       description: Unlock a wallet
@@ -220,7 +220,7 @@ paths:
                 type: object
                 description: returns nothing
 
-  /wallet/import_key:
+  /import_key:
     post:
       summary: import_key
       description: Import a key into a wallet
@@ -246,7 +246,7 @@ paths:
                 type: object
                 description: returns nothing
                 
-  /wallet/remove_key:
+  /remove_key:
     post:
       summary: remove_key
       description: Remove key from wallet
@@ -271,7 +271,7 @@ paths:
                 type: object
                 description: Returns Nothing
                 
-  /wallet/create_key:
+  /create_key:
     post:
       summary: create_key
       description: Creates a new key
@@ -296,7 +296,7 @@ paths:
                 type: string
                 description: key
 
-  /wallet/list_wallets:
+  /list_wallets:
     post:
       summary: list_wallets
       description: Lists all wallets
@@ -318,7 +318,7 @@ paths:
                 items:
                   type: string
 
-  /wallet/list_keys:
+  /list_keys:
     post:
       summary: list_keys
       description: Lists all key pairs
@@ -343,7 +343,7 @@ paths:
                 type: object
                 description: "map of publicKey: privateKey"
 
-  /wallet/get_public_keys:
+  /get_public_keys:
     post:
       summary: get_public_keys
       description: Get list of public keys
