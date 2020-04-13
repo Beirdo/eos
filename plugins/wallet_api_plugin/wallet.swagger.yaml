@@ -62,14 +62,14 @@ paths:
             schema:
               type: object
               required:
-                - signed_transaction
-                - public_keys
+                - transaction
+                - keys
                 - chain_id
               items:
                 properties:
-                  signed_transaction:
+                  transaction:
                     $ref: "https://eosio.github.io/schemata/v2.0/oas/SignedTransaction.yaml"
-                  public_keys:
+                  keys:
                     type: array
                     description: Public keys to sign with
                     items:
@@ -97,12 +97,12 @@ paths:
               type: object
               required:
                 - digest
-                - public_key
+                - key
               items:
                 properties:
                   digest:
                     $ref: "https://eosio.github.io/schemata/v2.0/oas/Sha256.yaml"
-                  public_key:
+                  key:
                     $ref: "https://eosio.github.io/schemata/v2.0/oas/PublicKey.yaml"
       responses:
         "201":
