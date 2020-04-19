@@ -19,14 +19,14 @@ public:
    APPBASE_PLUGIN_REQUIRES()
 
    struct sign_transaction_options {
-       chain::signed_transaction signed_transaction;
-       fc::flat_set<chain::public_key_type> public_keys;
+       chain::signed_transaction transaction;
+       fc::flat_set<chain::public_key_type> keys;
        chain::chain_id_type chain_id;
    };
 
    struct sign_digest_options {
        chain::digest_type digest;
-       chain::public_key_type public_key;
+       chain::public_key_type key;
    };
 
    wallet_plugin();
@@ -50,5 +50,5 @@ private:
 
 }
 
-FC_REFLECT(eosio::wallet_plugin::sign_transaction_options, (signed_transaction)(public_keys)(chain_id));
-FC_REFLECT(eosio::wallet_plugin::sign_digest_options, (digest)(public_key));
+FC_REFLECT(eosio::wallet_plugin::sign_transaction_options, (transaction)(keys)(chain_id));
+FC_REFLECT(eosio::wallet_plugin::sign_digest_options, (digest)(key));

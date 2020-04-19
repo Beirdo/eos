@@ -227,8 +227,8 @@ string wallet_manager::create_key(const std::string& name, const std::string& ke
 
 chain::signed_transaction
 wallet_manager::sign_transaction(const wallet_plugin::sign_transaction_options& options) {
-   const chain::signed_transaction& txn = options.signed_transaction;
-   const flat_set<public_key_type>& keys = options.public_keys;
+   const chain::signed_transaction& txn = options.transaction;
+   const flat_set<public_key_type>& keys = options.keys;
    const chain::chain_id_type& id = options.chain_id;
 
    check_timeout();
@@ -257,7 +257,7 @@ wallet_manager::sign_transaction(const wallet_plugin::sign_transaction_options& 
 chain::signature_type
 wallet_manager::sign_digest(const wallet_plugin::sign_digest_options& options) {
    const chain::digest_type& digest = options.digest;
-   const public_key_type& key = options.public_key;
+   const public_key_type& key = options.key;
 
    check_timeout();
 

@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(wallet_manager_test)
    flat_set<public_key_type> pubkeys;
    pubkeys.emplace(pkey1.get_public_key());
    pubkeys.emplace(pkey2.get_public_key());
-   signTransactionOptions.public_keys = pubkeys;
+   signTransactionOptions.keys = pubkeys;
 
    chain::signed_transaction trx = wm.sign_transaction(signTransactionOptions);
    flat_set<public_key_type> pks;

@@ -365,8 +365,8 @@ fc::variant determine_required_keys(const signed_transaction& trx) {
 
 void sign_transaction(signed_transaction& trx, fc::variant& required_keys, const chain_id_type& chain_id) {
    auto sign_args = fc::mutable_variant_object
-            ("signed_transaction", trx)
-            ("public_keys", required_keys)
+            ("transaction", trx)
+            ("keys", required_keys)
             ("chain_id", chain_id);
    const auto& signed_trx = call(wallet_url, wallet_sign_trx, sign_args);
    trx = signed_trx.as<signed_transaction>();
