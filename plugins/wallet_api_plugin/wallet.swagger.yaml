@@ -250,7 +250,7 @@ paths:
     post:
       summary: remove_key
       description: Remove key from wallet
-      operationId: set_whitelist_blacklist
+      operationId: remove_key
       parameters: []
       requestBody:
         content:
@@ -340,8 +340,15 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                description: "map of publicKey: privateKey"
+                type: array
+                description: "array of [publicKey, privateKey]"
+                items:
+                  type: array
+                  description: "[publicKey, privateKey]"
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    type: string
 
   /get_public_keys:
     post:
